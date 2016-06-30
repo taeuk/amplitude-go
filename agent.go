@@ -21,7 +21,7 @@ type Event struct {
 	DeviceId           string                 `json:"device_id,omitempty"`
 	EventType          string                 `json:"event_type,omitempty"`
 	Time               time.Time              `json:"-"`
-	TimeInMillis       int64                  `json:"timestamp,omitempty"`
+	TimeInMillis       int64                  `json:"time,omitempty"`
 	EventProperties    map[string]interface{} `json:"event_properties,omitempty"`
 	UserProperties     map[string]interface{} `json:"user_properties,omitempty"`
 	AppVersion         string                 `json:"app_version,omitempty"`
