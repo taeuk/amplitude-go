@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	DefaultQueueSize = 250
+	DefaultQueueSize = 5
 	ApiEndpoint      = "https://api.amplitude.com/httpapi"
 )
 
@@ -85,12 +85,7 @@ func (c *Client) Publish(e Event) error {
 		e.TimeInMillis = e.Time.UnixNano() / int64(time.Millisecond)
 	}
 
-	select {
-	case c.ch <- e:
-		return nil
-	default:
-		return fmt.Errorf("Unable to send event, queue is full.  Use a larger queue size or create more workers.")
-	}
+	c.ch <- e
 }
 
 func (c *Client) Event(e map[string]interface{}) error {
