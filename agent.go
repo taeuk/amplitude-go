@@ -86,6 +86,7 @@ func (c *Client) Publish(e Event) error {
 	}
 
 	c.ch <- e
+	return nil
 }
 
 func (c *Client) Event(e map[string]interface{}) error {
