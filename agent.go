@@ -106,7 +106,7 @@ func (c *Client) Event(e map[string]interface{}) error {
 func (c *Client) start() {
 	timer := time.NewTimer(c.interval)
 
-	bufferSize := 256
+	bufferSize := 100
 	buffer := make([]Event, bufferSize)
 	index := 0
 
@@ -153,6 +153,10 @@ func (c *Client) publish(events []Event) error {
 
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
 	resp, err := ctxhttp.PostForm(ctx, http.DefaultClient, ApiEndpoint, params)
+	if err != nil {
+		c.onPublishFunc(500, err)
+		return err
+	}
 	if resp != nil {
 		defer resp.Body.Close()
 	}
